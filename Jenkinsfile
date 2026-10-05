@@ -1,3 +1,4 @@
+```groovy
 pipeline {
 
     agent any
@@ -36,7 +37,7 @@ pipeline {
                 sh '''
                     export JEST_JUNIT_OUTPUT_NAME=unit-junit.xml
 
-                    npm test -- \
+                    npx jest tests/unit \
                     --runInBand \
                     --reporters=default \
                     --reporters=jest-junit
@@ -78,7 +79,7 @@ pipeline {
 
                     export JEST_JUNIT_OUTPUT_NAME=ui-junit.xml
 
-                    npm run test:ui -- \
+                    npx jest tests/e2e \
                     --runInBand \
                     --reporters=default \
                     --reporters=jest-junit
@@ -186,3 +187,4 @@ pipeline {
     }
 
 }
+```
