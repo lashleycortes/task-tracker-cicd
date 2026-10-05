@@ -50,8 +50,8 @@ describe("Task Tracker UI", () => {
                 By.css("h1")
             );
 
-        expect(await heading.getText())
-            .toBe("Task Tracker");
+       expect(await heading.getText())
+          .toBe("Task Tracker CI/CD");
 
         const input =
             await driver.findElement(
