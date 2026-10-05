@@ -1,0 +1,23 @@
+{
+  "name": "task-tracker-cicd",
+  "version": "1.0.0",
+  "description": "Task Tracker CI/CD Final Project",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "jest --runInBand",
+    "test:ui": "jest tests/e2e --runInBand"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "jest": "^30.0.0",
+    "jest-junit": "^16.0.0",
+    "selenium-webdriver": "^4.0.0"
+  },
+  "jest-junit": {
+    "outputDirectory": ".",
+    "outputName": "junit.xml"
+  }
+}

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Task Tracker</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .task-form {
+            display: flex;
+            gap: 10px;
+        }
+
+        input {
+            flex: 1;
+            padding: 10px;
+        }
+
+        button {
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        li {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Task Tracker</h1>
+
+    <div class="task-form">
+
+        <input
+            id="taskInput"
+            type="text"
+            placeholder="Enter a task"
+        >
+
+        <button id="addTaskButton">
+            Add Task
+        </button>
+
+    </div>
+
+    <h2>Tasks</h2>
+
+    <ul id="taskList"></ul>
+
+    <script>
+
+        async function loadTasks() {
+
+            const response =
+                await fetch("/api/tasks");
+
+            const tasks =
+                await response.json();
+
+            const taskList =
+                document.getElementById("taskList");
+
+            taskList.innerHTML = "";
+
+            tasks.forEach(task => {
+
+                const li =
+                    document.createElement("li");
+
+                li.textContent =
+                    task.completed
+                        ? `${task.title} - Completed`
+                        : task.title;
+
+                taskList.appendChild(li);
+
+            });
+
+        }
+
+        document
+            .getElementById("addTaskButton")
+            .addEventListener("click", async () => {
+
+                const input =
+                    document.getElementById("taskInput");
+
+                if (!input.value.trim()) {
+                    return;
+                }
+
+                await fetch("/api/tasks", {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        title: input.value
+                    })
+
+                });
+
+                input.value = "";
+
+                loadTasks();
+
+            });
+
+        loadTasks();
+
+    </script>
+
+</body>
+
+</html>
